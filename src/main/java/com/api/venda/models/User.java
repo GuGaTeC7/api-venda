@@ -8,48 +8,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = User.TABLE_NAME)
+@Table(name = "users")
 public class User {
-
-    public static final String TABLE_NAME = "users";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Long id;
 
-    @Column(name = "nome", length = 100, nullable = false)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "email", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "senha", length = 100, nullable = false)
+    @Column(name = "password", length = 100, nullable = false)
     private String password;
 
-    @Column(name = "status")
+    @Column(name = "is_active")
     private Boolean isActive;
 
     @Column(name = "cpf_cnpj", length = 100, nullable = false)
     private String cpfCnpj;
 
-    // Construtores
-    public User() {
-    }
-
-    public User(String name, String email, String password, Boolean isActive, String cpfCnpj) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.isActive = isActive;
-        this.cpfCnpj = cpfCnpj;
-    }
-
-    // Getters e Setters
-    public static String getTableName() {
-        return TABLE_NAME;
-    }
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -97,5 +79,4 @@ public class User {
     public void setCpfCnpj(String cpfCnpj) {
         this.cpfCnpj = cpfCnpj;
     }
-
 }
