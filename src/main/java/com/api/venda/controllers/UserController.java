@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,18 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@RequestBody User obj) {
         this.userService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/status/{status}")
+    public ResponseEntity<User> updateStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean IsActive) {
+        User updateUserStatus = userService.updateStatus(id, IsActive);
+        return ResponseEntity.ok(updateUserStatus);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        this.userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
