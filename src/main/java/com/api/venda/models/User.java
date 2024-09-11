@@ -1,10 +1,14 @@
 package com.api.venda.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +34,29 @@ public class User {
 
     @Column(name = "cpf_cnpj", length = 100, nullable = false)
     private String cpfCnpj;
+
+    @OneToMany(mappedBy = "user")
+    private List<Produto> produtos = new ArrayList<>();
+
+    public User() {
+    }
+
+    public User(String name, String email, String password, Boolean isActive, String cpfCnpj) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.isActive = isActive;
+        this.cpfCnpj = cpfCnpj;
+    }
+
+    public User(String name, String email, String password, Boolean isActive, String cpfCnpj, List<Produto> produtos) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.isActive = isActive;
+        this.cpfCnpj = cpfCnpj;
+        this.produtos = produtos != null ? produtos : new ArrayList<>();
+    }
 
     // Getters and Setters
     public Long getId() {
