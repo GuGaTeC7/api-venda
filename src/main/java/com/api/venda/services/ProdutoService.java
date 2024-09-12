@@ -3,6 +3,7 @@ package com.api.venda.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,4 +44,13 @@ public class ProdutoService {
         existingProduto.setPreco(obj.getPreco());
     }
 
+    @Transactional
+    public void delete(Long id) {
+        findById(id); // Verifica se o usuário existe
+        try {
+            this.produtoRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Não é possível excluir pois há entidades relacionadas!", e);
+        }
+    }
 }
